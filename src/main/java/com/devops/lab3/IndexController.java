@@ -12,7 +12,10 @@ public class IndexController {
     @GetMapping("/")
     public String greeting(Model model){
         LocalTime currentTime = LocalTime.now();
-        model.addAttribute("greeting", "Welcome to COMP367");
+        if(currentTime.isBefore(LocalTime.NOON))
+            model.addAttribute("greeting", "Good Morning, Hassaan");
+        else
+            model.addAttribute("greeting", "Good Afternoon, Hassaan");
         return "index";
     }
 
