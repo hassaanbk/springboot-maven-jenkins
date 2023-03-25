@@ -17,7 +17,7 @@ pipeline {
             steps {
 
                 // Run Maven on a Unix agent.
-                sh "mvn -Dmaven.test.failure.ignore=true -Dmaven.compiler.source=21 -Dmaven.compiler.target=21 clean package"
+                sh "mvn -Dmaven.test.failure.ignore=true -Dmaven.compiler.source=17 -Dmaven.compiler.target=17 clean package"
 
                 // To run Maven on a Windows agent, use
                 // bat "mvn -Dmaven.test.failure.ignore=true clean package"
