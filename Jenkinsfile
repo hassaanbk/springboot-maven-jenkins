@@ -4,6 +4,7 @@ pipeline {
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
         maven 'M3'
+        dockerTool 'docker'
     }
 
     stages {
@@ -32,25 +33,6 @@ pipeline {
                 }
             }
 
-        }
-        stage('Install Docker') {
-                    steps {
-                        // Download Docker for Mac installer
-                        sh 'curl -O https://download.docker.com/mac/stable/Docker.dmg'
-
-                        // Mount the disk image and copy the application to the Applications directory
-                        sh 'hdiutil mount Docker.dmg'
-                        sh 'cp -R /Volumes/Docker/Docker.app /Applications/'
-
-                        // Unmount the disk image
-                        sh 'hdiutil unmount /Volumes/Docker'
-
-                        // Start Docker for Mac
-                        sh 'open /Applications/Docker.app'
-
-                        // Wait for Docker to start
-                        sh 'while ! docker system info > /dev/null 2>&1; do sleep 1; done'
-                    }
         }
         stage('Docker Login'){
             steps {
