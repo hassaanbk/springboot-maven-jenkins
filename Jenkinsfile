@@ -12,6 +12,7 @@ pipeline {
                     checkout([$class: 'GitSCM', branches: [[name: '*/main']],
                               userRemoteConfigs: [[url: 'https://github.com/hassaanbk/springboot-maven-jenkins.git']]])
                 }
+        }
         stage('Build') {
             steps {
 
