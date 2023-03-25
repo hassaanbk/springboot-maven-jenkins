@@ -7,6 +7,11 @@ pipeline {
     }
 
     stages {
+        stage('Checkout') {
+                steps {
+                    checkout([$class: 'GitSCM', branches: [[name: '*/main']],
+                              userRemoteConfigs: [[url: 'https://github.com/hassaanbk/springboot-maven-jenkins.git']]])
+                }
         stage('Build') {
             steps {
 
@@ -24,6 +29,25 @@ pipeline {
                     junit '**/target/surefire-reports/TEST-*.xml'
                     archiveArtifacts 'target/*.jar'
                 }
+            }
+
+        }
+        stage('Docker Login'){
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker-token', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                                    sh "docker login -u $DOCKER_USER -p $DOCKER_PASS"
+                                }
+            }
+        }
+        stage('Build Docker Image'){
+            steps{
+                sh "docker build -t hassaanbk/maven-spring ."
+                sh "docker run -d -p 8080:8084 hassaanbk/maven-spring"
+            }
+        }
+        stage('Push to Docker Hub'){
+            steps{
+                sh "docker push hassaanbk/maven-spring"
             }
         }
     }
