@@ -4,7 +4,7 @@ pipeline {
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
         maven 'M3'
-        dockerTool = 'docker-20.10.10'
+        docker = 'docker'
     }
 
     stages {
