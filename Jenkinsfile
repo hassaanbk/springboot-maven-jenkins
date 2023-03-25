@@ -4,7 +4,11 @@ pipeline {
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
         maven 'M3'
-        docker 'docker'
+         dockerTool = 'docker-20.10.10'
+                install {
+                    // Install Docker on the agent machine
+                    nodejs dockerTool
+                }
     }
 
     stages {
