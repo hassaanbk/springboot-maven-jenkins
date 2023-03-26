@@ -36,7 +36,6 @@ pipeline {
         }
         stage('Docker Login'){
             steps {
-                sh "docker ps"
                 //sh 'curl https://get.docker.com/ | bash'
                 withCredentials([usernamePassword(credentialsId: 'docker-token', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                                     sh "docker login -u $DOCKER_USER -p $DOCKER_PASS"
